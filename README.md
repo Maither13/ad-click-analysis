@@ -36,8 +36,8 @@ mysql -u root -p < sql/create_tables.sql
 zookeeper-server-start.sh config/zookeeper.properties &
 kafka-server-start.sh config/server.properties &
 
-# 3. 模拟产生点击日志（终端运行 generate_log.py 即可看到日志滚动输出）
-python3 /opt/logs/generate_log.py
+# 3. 模拟产生点击日志（终端运行 generate_log.py 即可看到日志滚动输出，默认写入 /opt/logs/ad_click.log，可按环境修改）
+python3 generate_log.py
 
 # 4. 提交 Spark 流任务
 spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2 \
@@ -85,7 +85,8 @@ Streaming 每个微批都会产出一批统计结果，若逐行 `INSERT` 写库
 
 ```
 ad-click-analysis/
-├── ad_click_analysis.py        # Spark Structured Streaming 实时统计主脚本
+├── generate_log.py              # 模拟广告点击日志生成脚本
+├── ad_click_analysis.py         # Spark Structured Streaming 实时统计主脚本
 ├── sql/create_tables.sql       # MySQL 建表脚本（3 张统计表）
 ├── docs/screenshots/           # 运行截图（日志生成 / 任务提交 / 看板）
 └── demo/demo.mp4               # 演示视频
