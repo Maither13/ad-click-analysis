@@ -1,0 +1,23 @@
+CREATE DATABASE IF NOT EXISTS davinci DEFAULT CHARSET utf8mb4;
+USE davinci;
+
+CREATE TABLE IF NOT EXISTS ad_click_top (
+    ad_id VARCHAR(32) NOT NULL COMMENT '广告位ID',
+    click_count BIGINT NOT NULL DEFAULT 0 COMMENT '累计点击量',
+    stat_time DATETIME NOT NULL COMMENT '最后更新时间',
+    PRIMARY KEY (ad_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS province_click_top (
+    province VARCHAR(32) NOT NULL COMMENT '省份',
+    click_count BIGINT NOT NULL DEFAULT 0,
+    stat_time DATETIME NOT NULL,
+    PRIMARY KEY (province)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS city_click_top (
+    city VARCHAR(32) NOT NULL COMMENT '城市',
+    click_count BIGINT NOT NULL DEFAULT 0,
+    stat_time DATETIME NOT NULL,
+    PRIMARY KEY (city)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
